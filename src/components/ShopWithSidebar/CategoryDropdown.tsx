@@ -35,7 +35,7 @@ const CategoryItem = ({ category }) => {
           </svg>
         </div>
 
-        <span>{category.name}</span>
+        <span className="text-sm">{category.name}</span>
       </div>
 
       <span
@@ -63,7 +63,7 @@ const CategoryDropdown = ({ categories }) => {
           toggleDropdown && "shadow-filter"
         }`}
       >
-        <p className="text-dark">Category</p>
+        <p className="text-dark" style={{ fontFamily: 'Arial, sans-serif' }}>Độ tuổi (Kích cỡ)</p>
         <button
           aria-label="button for category dropdown"
           className={`text-dark ease-out duration-200 ${

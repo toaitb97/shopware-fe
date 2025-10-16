@@ -32,50 +32,50 @@ const ShopWithSidebar = () => {
 
   const categories = [
     {
-      name: "Desktop",
-      products: 10,
+      name: "12 tháng (6-10kg, 74-80cm)",
+      id: 1,
       isRefined: true,
     },
     {
-      name: "Laptop",
-      products: 12,
+      name: "18 tháng (11-12kg, 80-86cm)",
+      id: 2,
       isRefined: false,
     },
     {
-      name: "Monitor",
-      products: 30,
+      name: "2 tuổi (12-13kg, 86-92cm)",
+      id: 3,
       isRefined: false,
     },
     {
-      name: "UPS",
-      products: 23,
+      name: "2/3 tuổi (13-15kg, 92-98cm)",
+      id: 4,
       isRefined: false,
     },
     {
-      name: "Phone",
-      products: 10,
+      name: "3/4 tuổi (16-18kg, 98-104cm)",
+      id: 5,
       isRefined: false,
     },
     {
-      name: "Watch",
-      products: 13,
+      name: "4/5 tuổi (18-20kg, 104-110cm)",
+      id: 6,
       isRefined: false,
     },
   ];
 
   const genders = [
     {
-      name: "Men",
-      products: 10,
-    },
-    {
-      name: "Women",
-      products: 23,
-    },
-    {
       name: "Unisex",
-      products: 8,
+      id: 1,
     },
+    {
+      name: "Bé trai",
+      id: 2,
+    },
+        {
+      name: "Bé gái",
+      id: 2,
+    }
   ];
 
   useEffect(() => {
@@ -99,10 +99,10 @@ const ShopWithSidebar = () => {
 
   return (
     <>
-      <Breadcrumb
+      {/* <Breadcrumb
         title={"Explore All Products"}
         pages={["shop", "/", "shop with sidebar"]}
-      />
+      /> */}
       <section className="overflow-hidden relative pb-20 pt-5 lg:pt-20 xl:pt-28 bg-[#f3f4f6]">
         <div className="max-w-[1170px] w-full mx-auto px-4 sm:px-8 xl:px-0">
           <div className="flex gap-7.5">
@@ -151,8 +151,8 @@ const ShopWithSidebar = () => {
                   {/* <!-- filter box --> */}
                   <div className="bg-white shadow-1 rounded-lg py-4 px-5">
                     <div className="flex items-center justify-between">
-                      <p>Filters:</p>
-                      <button className="text-blue">Clean All</button>
+                      <p>Lọc:</p>
+                      <button className="text-blue" style={{ fontFamily: 'Arial, sans-serif' }}>Xóa tất cả</button>
                     </div>
                   </div>
 
@@ -163,10 +163,10 @@ const ShopWithSidebar = () => {
                   <GenderDropdown genders={genders} />
 
                   {/* // <!-- size box --> */}
-                  <SizeDropdown />
+                  {/* <SizeDropdown /> */}
 
                   {/* // <!-- color box --> */}
-                  <ColorsDropdwon />
+                  {/* <ColorsDropdwon /> */}
 
                   {/* // <!-- price range box --> */}
                   <PriceDropdown />
@@ -190,7 +190,7 @@ const ShopWithSidebar = () => {
                   </div>
 
                   {/* <!-- top bar right --> */}
-                  <div className="flex items-center gap-2.5">
+                  {/* <div className="flex items-center gap-2.5">
                     <button
                       onClick={() => setProductStyle("grid")}
                       aria-label="button for product grid tab"
@@ -266,7 +266,7 @@ const ShopWithSidebar = () => {
                         />
                       </svg>
                     </button>
-                  </div>
+                  </div> */}
                 </div>
               </div>
 

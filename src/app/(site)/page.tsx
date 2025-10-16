@@ -1,4 +1,5 @@
 import Home from "@/components/Home";
+import ShopWithSidebar from "@/components/ShopWithSidebar";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -10,7 +11,7 @@ export const metadata: Metadata = {
 export default function HomePage() {
   return (
     <>
-      <Home />
+      <ShopWithSidebar />
     </>
   );
 }

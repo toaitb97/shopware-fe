@@ -34,7 +34,7 @@ const GenderItem = ({ category }) => {
           </svg>
         </div>
 
-        <span>{category.name}</span>
+        <span className="text-sm">{category.name}</span>
       </div>
 
       <span
@@ -59,7 +59,7 @@ const GenderDropdown = ({ genders }) => {
           toggleDropdown && "shadow-filter"
         }`}
       >
-        <p className="text-dark">Gender</p>
+        <p className="text-dark" style={{ fontFamily: 'Arial, sans-serif' }}>Giới Tính</p>
         <button
           onClick={() => setToggleDropdown(!toggleDropdown)}
           aria-label="button for gender dropdown"
