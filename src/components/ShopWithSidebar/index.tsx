@@ -47,17 +47,27 @@ const ShopWithSidebar = () => {
       isRefined: false,
     },
     {
-      name: "2/3 tuổi (13-15kg, 92-98cm)",
+      name: "2-3 tuổi (13-15kg, 92-98cm)",
       id: 4,
       isRefined: false,
     },
     {
-      name: "3/4 tuổi (16-18kg, 98-104cm)",
+      name: "3-4 tuổi (16-18kg, 98-104cm)",
       id: 5,
       isRefined: false,
     },
     {
-      name: "4/5 tuổi (18-20kg, 104-110cm)",
+      name: "4-5 tuổi (18-20kg, 104-110cm)",
+      id: 6,
+      isRefined: false,
+    },
+    {
+      name: "5-6 tuổi (21-24kg, 110-116cm)",
+      id: 6,
+      isRefined: false,
+    },
+    {
+      name: "6-7 tuổi (24-27kg, 116-122cm)",
       id: 6,
       isRefined: false,
     },
@@ -151,8 +161,9 @@ const ShopWithSidebar = () => {
                   {/* <!-- filter box --> */}
                   <div className="bg-white shadow-1 rounded-lg py-4 px-5">
                     <div className="flex items-center justify-between">
-                      <p>Lọc:</p>
-                      <button className="text-blue" style={{ fontFamily: 'Arial, sans-serif' }}>Xóa tất cả</button>
+                      <p style={{ fontFamily: 'Arial, sans-serif' }}>Bộ lọc:</p>
+                      <button className="text-blue text-sm" style={{ fontFamily: 'Arial, sans-serif' }}>Tìm kiếm</button>
+                      <button className="text-red text-sm" style={{ fontFamily: 'Arial, sans-serif' }}>Xóa lọc</button>
                     </div>
                   </div>
 
@@ -274,7 +285,7 @@ const ShopWithSidebar = () => {
               <div
                 className={`${
                   productStyle === "grid"
-                    ? "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-7.5 gap-y-9"
+                    ? "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-7.5 gap-y-9"
                     : "flex flex-col gap-7.5"
                 }`}
               >

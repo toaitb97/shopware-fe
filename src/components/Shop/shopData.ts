@@ -8,12 +8,12 @@ const shopData: Product[] = [
     id: 1,
     imgs: {
       thumbnails: [
-        "/images/products/product-1-sm-1.png",
-        "/images/products/product-1-sm-2.png",
+        "/images/products/product.jpg",
+        "/images/products/product.jpg",
       ],
       previews: [
-        "/images/products/product-1-bg-1.png",
-        "/images/products/product-1-bg-2.png",
+        "/images/products/product.jpg",
+        "/images/products/product.jpg",
       ],
     },
   },
