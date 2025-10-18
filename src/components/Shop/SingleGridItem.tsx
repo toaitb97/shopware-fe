@@ -10,6 +10,8 @@ import { AppDispatch } from "@/redux/store";
 import Link from "next/link";
 import Image from "next/image";
 
+
+
 const SingleGridItem = ({ item }: { item: Product }) => {
   const { openModal } = useModalContext();
 
@@ -42,8 +44,14 @@ const SingleGridItem = ({ item }: { item: Product }) => {
 
   return (
     <div className="group">
-      <div className="relative overflow-hidden flex items-center justify-center rounded-lg bg-white shadow-1 min-h-[230px] mb-2">
-        <Image src={item.imgs.previews[0]} alt="" width={250} height={250} />
+      <div className="relative flex items-center justify-center rounded-lg bg-white shadow-1 mb-2 overflow-hidden">
+        <div className="w-full max-w-[250px] aspect-square flex items-center justify-center bg-white rounded-lg">
+          <img
+            src={item.img}
+            alt="Product"
+            className="max-w-full max-h-full object-contain"
+          />
+        </div>
 
         <div className="absolute left-0 bottom-0 translate-y-full w-full flex items-center justify-center gap-2.5 pb-5 ease-linear duration-200 group-hover:translate-y-0">
           <button
@@ -152,10 +160,17 @@ const SingleGridItem = ({ item }: { item: Product }) => {
         <Link href="/shop-details"> {item.title} </Link>
       </h3>
 
-      <span className="flex items-center gap-2 font-medium text-lg">
-        <span className="text-dark">${item.discountedPrice}</span>
-        <span className="text-dark-4 line-through">${item.price}</span>
+      <span className="flex items-center gap-2 font-medium text-sm">
+        <span className="text-dark">
+          {item.discountedPrice.toLocaleString("vi-VN")}<span className="text-sm align-top">đ</span>
+        </span>
+        {item.discountedPrice !== item.price && (
+          <span className="text-dark-4 line-through text-sm">
+            {item.price.toLocaleString("vi-VN")}<span className="align-top">đ</span>
+          </span>
+        )}
       </span>
+
     </div>
   );
 };

@@ -321,7 +321,7 @@ const ShopDetails = () => {
                     </span>
                     <span className="line-through">
                       {" "}
-                      ${product.discountedPrice}{" "}
+                      ${product.sellingPrice}{" "}
                     </span>
                   </h3>
 

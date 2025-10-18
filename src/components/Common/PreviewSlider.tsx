@@ -99,10 +99,10 @@ const PreviewSliderModal = () => {
         <SwiperSlide>
           <div className="flex justify-center items-center">
             <Image
-              src={"/images/products/product-2-bg-1.png"}
+              src={data.imgs.previews[1]}
               alt={"product image"}
-              width={450}
-              height={450}
+              width={500}
+              height={500}
             />
           </div>
         </SwiperSlide>

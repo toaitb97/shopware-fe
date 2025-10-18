@@ -91,7 +91,7 @@ const CategoryDropdown = ({ categories }) => {
       {/* dropdown && 'shadow-filter */}
       {/* <!-- dropdown menu --> */}
       <div
-        className={`flex-col gap-3 py-6 pl-6 pr-5.5 ${
+        className={`flex-col gap-3 py-5 pl-6 pr-5.5 ${
           toggleDropdown ? "flex" : "hidden"
         }`}
       >

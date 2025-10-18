@@ -55,7 +55,7 @@ const GenderDropdown = ({ genders }) => {
     <div className="bg-white shadow-1 rounded-lg">
       <div
         onClick={() => setToggleDropdown(!toggleDropdown)}
-        className={`cursor-pointer flex items-center justify-between py-3 pl-6 pr-5.5 ${
+        className={`cursor-pointer flex items-center justify-between py-2 pl-6 pr-5.5 ${
           toggleDropdown && "shadow-filter"
         }`}
       >
@@ -87,7 +87,7 @@ const GenderDropdown = ({ genders }) => {
 
       {/* <!-- dropdown menu --> */}
       <div
-        className={`flex-col gap-3 py-6 pl-6 pr-5.5 ${
+        className={`flex-col gap-3 py-3 pl-6 pr-5.5 ${
           toggleDropdown ? "flex" : "hidden"
         }`}
       >

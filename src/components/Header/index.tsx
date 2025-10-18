@@ -75,7 +75,7 @@ const Header = () => {
 
             <div className="max-w-[475px] w-full">
               <form>
-                <div className="flex items-center">
+                <div className="flex items-center" style={{ fontFamily: 'Arial, sans-serif'}}>
                   <CustomSelect options={options} />
 
                   <div className="relative max-w-[333px] sm:min-w-[333px] w-full">
@@ -150,7 +150,7 @@ const Header = () => {
                   Tư vấn 24/7
                 </span>
                 <p className="font-medium text-custom-sm text-dark">
-                  0969073795
+                  0971 688 677
                 </p>
               </div>
             </div>

@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef} from "react";
 import Breadcrumb from "../Common/Breadcrumb";
 import CustomSelect from "./CustomSelect";
 import CategoryDropdown from "./CategoryDropdown";
@@ -10,19 +10,12 @@ import PriceDropdown from "./PriceDropdown";
 import shopData from "../Shop/shopData";
 import SingleGridItem from "../Shop/SingleGridItem";
 import SingleListItem from "../Shop/SingleListItem";
+import { homeService } from "../../services/home";
 
 const ShopWithSidebar = () => {
   const [productStyle, setProductStyle] = useState("grid");
   const [productSidebar, setProductSidebar] = useState(false);
   const [stickyMenu, setStickyMenu] = useState(false);
-
-  const handleStickyMenu = () => {
-    if (window.scrollY >= 80) {
-      setStickyMenu(true);
-    } else {
-      setStickyMenu(false);
-    }
-  };
 
   const options = [
     { label: "Latest Products", value: "0" },
@@ -88,24 +81,37 @@ const ShopWithSidebar = () => {
     }
   ];
 
+  const [shopData, setShopData] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const didFetch = useRef(false);
+  console.log("📦 shopData updated:", shopData);
   useEffect(() => {
-    window.addEventListener("scroll", handleStickyMenu);
+    const fetchProducts = async () => {
+      try {
+        setLoading(true);
+        const res = await homeService.getPagedProducts(
+          [], // gender
+          [], // productType
+          [], // productStyle
+          [], // ageGroup
+          null, // minPrice
+          null, // maxPrice
+          1, // page
+          20 // pageSize
+        );
 
-    // closing sidebar while clicking outside
-    function handleClickOutside(event) {
-      if (!event.target.closest(".sidebar-content")) {
-        setProductSidebar(false);
+        console.log("✅ API response:", res); // 👉 log ở đây để chắc chắn thấy data
+
+        setShopData(res.items); // hoặc res nếu axiosHelper unwrap data
+      } catch (err) {
+        console.error("❌ Failed to fetch products:", err);
+      } finally {
+        setLoading(false);
       }
-    }
-
-    if (productSidebar) {
-      document.addEventListener("mousedown", handleClickOutside);
-    }
-
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
     };
-  });
+
+    fetchProducts();
+  }, []);
 
   return (
     <>
@@ -283,17 +289,10 @@ const ShopWithSidebar = () => {
 
               {/* <!-- Products Grid Tab Content Start --> */}
               <div
-                className={`${
-                  productStyle === "grid"
-                    ? "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-7.5 gap-y-9"
-                    : "flex flex-col gap-7.5"
-                }`}
+                className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-7.5 gap-y-9 pt-20 lg:pt-0"
               >
-                {shopData.map((item, key) =>
-                  productStyle === "grid" ? (
+                {shopData.map((item, key) => (
                     <SingleGridItem item={item} key={key} />
-                  ) : (
-                    <SingleListItem item={item} key={key} />
                   )
                 )}
               </div>
