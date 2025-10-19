@@ -243,7 +243,7 @@ const Header = () => {
                         GIỎ HÀNG
                       </span>
                       <p className="font-medium text-custom-sm text-dark">
-                        ${totalPrice}
+                        {totalPrice.toLocaleString("vi-VN")}đ
                       </p>
                     </div>
                   </button>
