@@ -44,7 +44,7 @@ const SingleGridItem = ({ item }: { item: Product }) => {
 
   return (
     <div className="group">
-      <div className="relative flex items-center justify-center rounded-lg bg-white shadow-1 mb-2 overflow-hidden">
+      <div className="relative flex items-center justify-center rounded-lg bg-white shadow-1 overflow-hidden">
         <div className="w-full max-w-[250px] aspect-square flex items-center justify-center bg-white rounded-lg">
           <img
             src={item.img}
@@ -119,7 +119,7 @@ const SingleGridItem = ({ item }: { item: Product }) => {
         </div>
       </div>
 
-      <div className="flex items-center gap-2.5 mb-2">
+      <div className="flex items-center justify-center gap-2.5">
         <div className="flex items-center gap-1">
           <Image
             src="/images/icons/icon-star.svg"
@@ -156,11 +156,11 @@ const SingleGridItem = ({ item }: { item: Product }) => {
         <p className="text-custom-sm">({item.reviews})</p>
       </div>
 
-      <h3 className="font-medium text-dark ease-out duration-200 hover:text-blue mb-1.5">
+      {/* <h3 className="font-medium text-dark ease-out duration-200 hover:text-blue mb-1.5">
         <Link href="/shop-details"> {item.title} </Link>
-      </h3>
+      </h3> */}
 
-      <span className="flex items-center gap-2 font-medium text-sm">
+      <span className="flex items-center justify-center gap-2 font-medium text-sm">
         <span className="text-dark">
           {item.discountedPrice.toLocaleString("vi-VN")}<span className="text-sm align-top">đ</span>
         </span>

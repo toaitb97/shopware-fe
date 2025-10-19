@@ -150,12 +150,8 @@ const QuickViewModal = () => {
 
             <div className="max-w-[445px] w-full">
               <span className="inline-block text-custom-xs font-medium text-white py-1 px-3 bg-green mb-6.5">
-                SALE 20% OFF
+                SALE {product.discount}% OFF
               </span>
-
-              <h3 className="font-semibold text-xl xl:text-heading-5 text-dark mb-4">
-                {product.title}
-              </h3>
 
               <div className="flex flex-wrap items-center gap-5 mb-6">
                 <div className="flex items-center gap-1.5">
@@ -302,15 +298,19 @@ const QuickViewModal = () => {
                 </div>
               </div>
 
-              <p>
-                Lorem Ipsum is simply dummy text of the printing and typesetting
-                industry. Lorem Ipsum has.
+              <p  style={{ fontFamily: "Arial, sans-serif" }}>
+                {product.title.split('|').map((part, index) => (
+                  <React.Fragment key={index}>
+                    {part.trim()}
+                    <br />
+                  </React.Fragment>
+                ))}
               </p>
 
               <div className="flex flex-wrap justify-between gap-5 mt-6 mb-7.5">
                 <div>
                   <h4 className="font-semibold text-lg text-dark mb-3.5">
-                    Price
+                    Giá bán
                   </h4>
 
                   <span className="flex items-center gap-2">
@@ -324,8 +324,8 @@ const QuickViewModal = () => {
                 </div>
 
                 <div>
-                  <h4 className="font-semibold text-lg text-dark mb-3.5">
-                    Quantity
+                  <h4 className="font-semibold text-lg text-dark mb-3.5" style={{ fontFamily: "Arial, sans-serif" }}>
+                    Số lượng
                   </h4>
 
                   <div className="flex items-center gap-3">
@@ -391,13 +391,13 @@ const QuickViewModal = () => {
               </div>
 
               <div className="flex flex-wrap items-center gap-4">
-                <button
+                <button style={{ fontFamily: "Arial, sans-serif" }}
                   disabled={quantity === 0 && true}
                   onClick={() => handleAddToCart()}
                   className={`inline-flex font-medium text-white bg-blue py-3 px-7 rounded-md ease-out duration-200 hover:bg-blue-dark
                   `}
                 >
-                  Add to Cart
+                  Thêm vào giỏ
                 </button>
 
                 <button
@@ -418,7 +418,7 @@ const QuickViewModal = () => {
                       fill=""
                     />
                   </svg>
-                  Add to Wishlist
+                  Yêu thích
                 </button>
               </div>
             </div>

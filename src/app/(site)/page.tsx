@@ -3,15 +3,14 @@ import ShopWithSidebar from "@/components/ShopWithSidebar";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "NextCommerce | Nextjs E-commerce template",
-  description: "This is Home for NextCommerce Template",
+  title: "taphoaxuatdu",
+  description: "taphoaxuatdu",
   // other metadata
 };
 
 export default function HomePage() {
   return (
     <>
-      <ShopWithSidebar />
     </>
   );
 }

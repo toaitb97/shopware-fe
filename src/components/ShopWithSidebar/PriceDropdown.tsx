@@ -2,13 +2,8 @@ import { useState } from 'react';
 import RangeSlider from 'react-range-slider-input';
 import 'react-range-slider-input/dist/style.css';
 
-const PriceDropdown = () => {
+const PriceDropdown = ({ selectedPrice, setSelectedPrice }) => {
   const [toggleDropdown, setToggleDropdown] = useState(true);
-
-  const [selectedPrice, setSelectedPrice] = useState({
-    from: 30000,
-    to: 500000,
-  });
 
   return (
     <div className="bg-white shadow-1 rounded-lg">
@@ -21,9 +16,7 @@ const PriceDropdown = () => {
           onClick={() => setToggleDropdown(!toggleDropdown)}
           id="price-dropdown-btn"
           aria-label="button for price dropdown"
-          className={`text-dark ease-out duration-200 ${
-            toggleDropdown && 'rotate-180'
-          }`}
+          className={`text-dark ease-out duration-200 ${toggleDropdown && "rotate-180"}`}
         >
           <svg
             className="fill-current"
@@ -43,42 +36,36 @@ const PriceDropdown = () => {
         </button>
       </div>
 
-      {/* // <!-- dropdown menu --> */}
-      <div className={`p-6 ${toggleDropdown ? 'block' : 'hidden'}`}>
+      <div className={`p-6 ${toggleDropdown ? "block" : "hidden"}`}>
         <div id="pricingOne">
           <div className="price-range">
-          <RangeSlider
-            id="range-slider-gradient"
-            className="margin-lg"
-            min={0}
-            max={500000}
-            step={10000}
-            defaultValue={[30000, 500000]}
-            onInput={(e) =>
-              setSelectedPrice({
-                from: Math.floor(e[0]),
-                to: Math.ceil(e[1]),
-              })
-            }
-          />
-
+            <RangeSlider
+              id="range-slider-gradient"
+              className="margin-lg"
+              min={0}
+              max={500000}
+              step={10000}
+              value={[selectedPrice.from, selectedPrice.to]}
+              onInput={(e) =>
+                setSelectedPrice({
+                  from: Math.floor(e[0]),
+                  to: Math.ceil(e[1]),
+                })
+              }
+            />
 
             <div className="price-amount flex items-center justify-between pt-4">
               <div className="text-custom-xs text-dark-4 flex rounded border border-gray-3/80">
-                <span className="block border-r border-gray-3/80 px-2.5 py-1.5">
-                  $
-                </span>
+                <span className="block border-r border-gray-3/80 px-2.5 py-1.5">$</span>
                 <span id="minAmount" className="block px-3 py-1">
-                  {selectedPrice.from.toLocaleString('vi-VN')}
+                  {selectedPrice.from.toLocaleString("vi-VN")}
                 </span>
               </div>
 
               <div className="text-custom-xs text-dark-4 flex rounded border border-gray-3/80">
-                <span className="block border-r border-gray-3/80 px-2.5 py-1.5">
-                  $
-                </span>
+                <span className="block border-r border-gray-3/80 px-2.5 py-1.5">$</span>
                 <span id="maxAmount" className="block px-3 py-1">
-                  {selectedPrice.to.toLocaleString('vi-VN')}
+                  {selectedPrice.to.toLocaleString("vi-VN")}
                 </span>
               </div>
             </div>
@@ -88,5 +75,6 @@ const PriceDropdown = () => {
     </div>
   );
 };
+
 
 export default PriceDropdown;

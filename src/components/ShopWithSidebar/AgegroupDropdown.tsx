@@ -2,20 +2,25 @@
 
 import { useState } from "react";
 
-const CategoryItem = ({ category }) => {
-  const [selected, setSelected] = useState(false);
+const CategoryItem = ({ category, selectedAgegroups, setSelectedAgegroups }) => {
+  const selected = selectedAgegroups.includes(category.id);
+
+  const toggleSelect = () => {
+    if (selected) {
+      setSelectedAgegroups(selectedAgegroups.filter(id => id !== category.id));
+    } else {
+      setSelectedAgegroups([...selectedAgegroups, category.id]);
+    }
+  };
+
   return (
     <button
-      className={`${
-        selected && "text-blue"
-      } group flex items-center justify-between ease-out duration-200 hover:text-blue `}
-      onClick={() => setSelected(!selected)}
+      className={`${selected && "text-blue"} group flex items-center justify-between ease-out duration-200 hover:text-blue`}
+      onClick={toggleSelect}
     >
       <div className="flex items-center gap-2">
         <div
-          className={`cursor-pointer flex items-center justify-center rounded w-4 h-4 border ${
-            selected ? "border-blue bg-blue" : "bg-white border-gray-3"
-          }`}
+          className={`cursor-pointer flex items-center justify-center rounded w-4 h-4 border ${selected ? "border-blue bg-blue" : "bg-white border-gray-3"}`}
         >
           <svg
             className={selected ? "block" : "hidden"}
@@ -39,9 +44,7 @@ const CategoryItem = ({ category }) => {
       </div>
 
       <span
-        className={`${
-          selected ? "text-white bg-blue" : "bg-gray-2"
-        } inline-flex rounded-[30px] text-custom-xs px-2 ease-out duration-200 group-hover:text-white group-hover:bg-blue`}
+        className={`${selected ? "text-white bg-blue" : "bg-gray-2"} inline-flex rounded-[30px] text-custom-xs px-2 ease-out duration-200 group-hover:text-white group-hover:bg-blue`}
       >
         {category.products}
       </span>
@@ -49,26 +52,19 @@ const CategoryItem = ({ category }) => {
   );
 };
 
-const CategoryDropdown = ({ categories }) => {
+const AgegroupDropdown = ({ agegroups, selectedAgegroups, setSelectedAgegroups }) => {
   const [toggleDropdown, setToggleDropdown] = useState(true);
 
   return (
     <div className="bg-white shadow-1 rounded-lg">
       <div
-        onClick={(e) => {
-          e.preventDefault();
-          setToggleDropdown(!toggleDropdown);
-        }}
-        className={`cursor-pointer flex items-center justify-between py-3 pl-6 pr-5.5 ${
-          toggleDropdown && "shadow-filter"
-        }`}
+        onClick={(e) => { e.preventDefault(); setToggleDropdown(!toggleDropdown); }}
+        className={`cursor-pointer flex items-center justify-between py-3 pl-6 pr-5.5 ${toggleDropdown && "shadow-filter"}`}
       >
         <p className="text-dark" style={{ fontFamily: 'Arial, sans-serif' }}>Độ tuổi (Kích cỡ)</p>
         <button
           aria-label="button for category dropdown"
-          className={`text-dark ease-out duration-200 ${
-            toggleDropdown && "rotate-180"
-          }`}
+          className={`text-dark ease-out duration-200 ${toggleDropdown && "rotate-180"}`}
         >
           <svg
             className="fill-current"
@@ -88,19 +84,19 @@ const CategoryDropdown = ({ categories }) => {
         </button>
       </div>
 
-      {/* dropdown && 'shadow-filter */}
-      {/* <!-- dropdown menu --> */}
-      <div
-        className={`flex-col gap-3 py-5 pl-6 pr-5.5 ${
-          toggleDropdown ? "flex" : "hidden"
-        }`}
-      >
-        {categories.map((category, key) => (
-          <CategoryItem key={key} category={category} />
+      <div className={`flex-col gap-3 py-5 pl-6 pr-5.5 ${toggleDropdown ? "flex" : "hidden"}`}>
+        {agegroups.map((category) => (
+          <CategoryItem
+            key={category.id}
+            category={category}
+            selectedAgegroups={selectedAgegroups}
+            setSelectedAgegroups={setSelectedAgegroups}
+          />
         ))}
       </div>
     </div>
   );
 };
 
-export default CategoryDropdown;
+
+export default AgegroupDropdown;
