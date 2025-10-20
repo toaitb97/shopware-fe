@@ -9,21 +9,33 @@ import { usePreviewSlider } from "@/app/context/PreviewSliderContext";
 import { useAppSelector } from "@/redux/store";
 
 const PreviewSliderModal = () => {
-  const { closePreviewModal, isModalPreviewOpen } = usePreviewSlider();
+  const {
+    closePreviewModal,
+    isModalPreviewOpen,
+    currentPreviewIndex,
+    setCurrentPreviewIndex,
+  } = usePreviewSlider();
 
   const data = useAppSelector((state) => state.productDetailsReducer.value);
 
   const sliderRef = useRef(null);
 
   const handlePrev = useCallback(() => {
-    if (!sliderRef.current) return;
-    sliderRef.current.swiper.slidePrev();
-  }, []);
+    const total = data.imgs.previews.length;
+    const newIndex = currentPreviewIndex === 0 ? total - 1 : currentPreviewIndex - 1;
+
+    setCurrentPreviewIndex(newIndex);
+    sliderRef.current?.swiper.slideTo(newIndex);
+  }, [currentPreviewIndex, setCurrentPreviewIndex, data.imgs.previews.length]);
 
   const handleNext = useCallback(() => {
-    if (!sliderRef.current) return;
-    sliderRef.current.swiper.slideNext();
-  }, []);
+    const total = data.imgs.previews.length;
+    const newIndex = currentPreviewIndex === total - 1 ? 0 : currentPreviewIndex + 1;
+
+    setCurrentPreviewIndex(newIndex);
+    sliderRef.current?.swiper.slideTo(newIndex);
+  }, [currentPreviewIndex, setCurrentPreviewIndex, data.imgs.previews.length]);
+
 
   return (
     <div
@@ -98,12 +110,12 @@ const PreviewSliderModal = () => {
       <Swiper ref={sliderRef} slidesPerView={1} spaceBetween={20}>
         <SwiperSlide>
           <div className="flex justify-center items-center">
-            <Image
-              src={data.imgs.previews[1]}
-              alt={"product image"}
-              width={500}
-              height={500}
-            />
+          <Image
+            src={data.imgs.previews[currentPreviewIndex ?? 0]}
+            alt="product image"
+            width={500}
+            height={500}
+          />
           </div>
         </SwiperSlide>
       </Swiper>

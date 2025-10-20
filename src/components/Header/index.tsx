@@ -2,23 +2,21 @@
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import CustomSelect from "./CustomSelect";
-import { menuData } from "./menuData";
-import Dropdown from "./Dropdown";
 import { useAppSelector } from "@/redux/store";
 import { useSelector } from "react-redux";
 import { selectTotalPrice } from "@/redux/features/cart-slice";
 import { useCartModalContext } from "@/app/context/CartSidebarModalContext";
 import Image from "next/image";
-import ShopWithSidebar from "../ShopWithSidebar";
+import { useFilter } from "@/app/context/FilterContext";
 
 const Header = () => {
   const [searchQuery, setSearchQuery] = useState("");
-  const [navigationOpen, setNavigationOpen] = useState(false);
   const [stickyMenu, setStickyMenu] = useState(false);
   const { openCartModal } = useCartModalContext();
 
   const product = useAppSelector((state) => state.cartReducer.items);
   const totalPrice = useSelector(selectTotalPrice);
+  const { isFilterOpen, toggleFilter } = useFilter();
 
   const handleOpenCartModal = () => {
     openCartModal();
@@ -35,7 +33,9 @@ const Header = () => {
 
   useEffect(() => {
     window.addEventListener("scroll", handleStickyMenu);
-  });
+    return () => window.removeEventListener("scroll", handleStickyMenu);
+  }, []);
+
 
   const options = [
     { label: "tất cả độ tuổi", value: "0" },
@@ -46,13 +46,13 @@ const Header = () => {
     { label: "3/4 tuổi", value: "5" },
     { label: "4/5 tuổi", value: "6" },
     { label: "6/7 tuổi", value: "7" },
-    { label: "6/7 tuổi", value: "7" },
+    { label: "7/8 tuổi", value: "8" },
   ];
 
   return (
     <>
       <header
-        className={`fixed left-0 top-0 w-full z-9999 bg-white transition-all ease-in-out ${
+        className={`fixed left-0 top-0 w-full z-[9999] bg-white transition-all ease-in-out ${
           stickyMenu && "shadow"
         }`}
       >
@@ -254,23 +254,23 @@ const Header = () => {
                   id="Toggle"
                   aria-label="Toggler"
                   className="xl:hidden block"
-                  onClick={() => setNavigationOpen(!navigationOpen)}
+                  onClick={() => toggleFilter()}
                 >
                   <span className="block relative cursor-pointer w-5.5 h-5.5">
                     <span className="du-block absolute right-0 w-full h-full">
                       <span
                         className={`block relative top-0 left-0 bg-dark rounded-sm w-0 h-0.5 my-1 ease-in-out duration-200 delay-[0] ${
-                          !navigationOpen && "!w-full delay-300"
+                          !isFilterOpen && "!w-full delay-300"
                         }`}
                       ></span>
                       <span
                         className={`block relative top-0 left-0 bg-dark rounded-sm w-0 h-0.5 my-1 ease-in-out duration-200 delay-150 ${
-                          !navigationOpen && "!w-full delay-400"
+                          !isFilterOpen && "!w-full delay-400"
                         }`}
                       ></span>
                       <span
                         className={`block relative top-0 left-0 bg-dark rounded-sm w-0 h-0.5 my-1 ease-in-out duration-200 delay-200 ${
-                          !navigationOpen && "!w-full delay-500"
+                          !isFilterOpen && "!w-full delay-500"
                         }`}
                       ></span>
                     </span>
@@ -278,12 +278,12 @@ const Header = () => {
                     <span className="block absolute right-0 w-full h-full rotate-45">
                       <span
                         className={`block bg-dark rounded-sm ease-in-out duration-200 delay-300 absolute left-2.5 top-0 w-0.5 h-full ${
-                          !navigationOpen && "!h-0 delay-[0] "
+                          !isFilterOpen && "!h-0 delay-[0] "
                         }`}
                       ></span>
                       <span
                         className={`block bg-dark rounded-sm ease-in-out duration-200 delay-400 absolute left-0 top-2.5 w-full h-0.5 ${
-                          !navigationOpen && "!h-0 dealy-200"
+                          !isFilterOpen && "!h-0 dealy-200"
                         }`}
                       ></span>
                     </span>
@@ -296,9 +296,7 @@ const Header = () => {
           {/* <!-- header top end --> */}
         </div>
       </header>
-      <ShopWithSidebar productSidebar={navigationOpen} />
     </>
-
   );
 };
 

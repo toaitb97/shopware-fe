@@ -54,7 +54,7 @@ const GenderItem = ({ gender, selectedGenders, setSelectedGenders }) => {
 };
 
 
-const GenderDropdown = ({ genders, selectedGenders, setSelectedGenders }) => {
+const GenderDropdown = ({ name, genders, selectedGenders, setSelectedGenders }) => {
   const [toggleDropdown, setToggleDropdown] = useState(true);
 
   return (
@@ -63,7 +63,7 @@ const GenderDropdown = ({ genders, selectedGenders, setSelectedGenders }) => {
         onClick={() => setToggleDropdown(!toggleDropdown)}
         className={`cursor-pointer flex items-center justify-between py-2 pl-6 pr-5.5 ${toggleDropdown && "shadow-filter"}`}
       >
-        <p className="text-dark" style={{ fontFamily: 'Arial, sans-serif' }}>Giới Tính</p>
+        <p className="text-dark" style={{ fontFamily: 'Arial, sans-serif' }}>{name}</p>
         <button
           onClick={() => setToggleDropdown(!toggleDropdown)}
           aria-label="button for gender dropdown"
@@ -87,7 +87,7 @@ const GenderDropdown = ({ genders, selectedGenders, setSelectedGenders }) => {
         </button>
       </div>
 
-      <div className={`flex-col gap-3 py-3 pl-6 pr-5.5 ${toggleDropdown ? "flex" : "hidden"}`}>
+      <div className={`flex flex-wrap gap-3 py-3 pl-6 pr-5.5 ${toggleDropdown ? "flex" : "hidden"}`}>
         {genders.map((gender) => (
           <GenderItem
             key={gender.id}

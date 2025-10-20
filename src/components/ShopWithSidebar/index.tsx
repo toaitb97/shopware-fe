@@ -9,10 +9,12 @@ import PriceDropdown from "./PriceDropdown";
 import SingleGridItem from "../Shop/SingleGridItem";
 import { homeService } from "../../services/home";
 import Pagination from "./Pagination";
+import { useFilter } from "@/app/context/FilterContext";
 
-const ShopWithSidebar = ({ productSidebar }) => {
+const ShopWithSidebar = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
+  const { isFilterOpen } = useFilter();
 
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -22,6 +24,7 @@ const ShopWithSidebar = ({ productSidebar }) => {
 
   const [selectedAgegroups, setSelectedAgegroups] = useState([]);
   const [selectedGenders, setSelectedGenders] = useState([]);
+  const [selectedProductTypes, setSelectedProductTypes] = useState([]);
   const [selectedPrice, setSelectedPrice] = useState({ from: 30000, to: 500000 });
 
   const options = [
@@ -42,9 +45,15 @@ const ShopWithSidebar = ({ productSidebar }) => {
   ];
 
   const genders = [
-    { name: "Unisex", id: 1 },
     { name: "Bé trai", id: 2 },
     { name: "Bé gái", id: 3 },
+  ];
+
+  const productTypes = [
+    { name: "Bộ", id: 1 },
+    { name: "Combo", id: 2 },
+    { name: "Áo", id: 3 },
+    { name: "Quần", id: 4 },
   ];
 
   const pageSize = 12;
@@ -55,7 +64,7 @@ const ShopWithSidebar = ({ productSidebar }) => {
       setLoading(true);
       const res = await homeService.getPagedProducts(
         selectedGenders,
-        [],
+        selectedProductTypes,
         [],
         selectedAgegroups,
         selectedPrice.from,
@@ -78,6 +87,10 @@ const ShopWithSidebar = ({ productSidebar }) => {
       .split(",")
       .filter(Boolean)
       .map(Number);
+    const productTypesParam = (searchParams.get("productTypes") || "")
+      .split(",")
+      .filter(Boolean)
+      .map(Number);
     const agegroupsParam = (searchParams.get("agegroups") || "")
       .split(",")
       .filter(Boolean)
@@ -87,6 +100,7 @@ const ShopWithSidebar = ({ productSidebar }) => {
     const pageParam = parseInt(searchParams.get("page")) || 1;
 
     setSelectedGenders(gendersParam);
+    setSelectedProductTypes(productTypesParam);
     setSelectedAgegroups(agegroupsParam);
     setSelectedPrice({ from: minPriceParam, to: maxPriceParam });
     setCurrentPage(pageParam);
@@ -97,7 +111,7 @@ const ShopWithSidebar = ({ productSidebar }) => {
   // Khi đổi page
   const handlePageChange = (page) => {
     setCurrentPage(page);
-    pushUrl(page, selectedGenders, selectedAgegroups, selectedPrice);
+    pushUrl(page, selectedGenders, selectedProductTypes, selectedAgegroups, selectedPrice);
     window.scrollTo({ top: 0, behavior: "smooth" });
     fetchProducts(page);
   };
@@ -105,26 +119,27 @@ const ShopWithSidebar = ({ productSidebar }) => {
   // Khi click "Tìm kiếm"
   const handleSearch = () => {
     setCurrentPage(1);
-    pushUrl(1, selectedGenders, selectedAgegroups, selectedPrice);
+    pushUrl(1, selectedGenders, selectedProductTypes, selectedAgegroups, selectedPrice);
     fetchProducts(1);
   };
 
   // Khi click "Xóa lọc"
   const handleResetFilter = () => {
     setSelectedGenders([]);
+    setSelectedProductTypes([]);
     setSelectedAgegroups([]);
     setSelectedPrice({ from: 30000, to: 500000 });
     setCurrentPage(1);
-    pushUrl(1, [], [], { from: 30000, to: 500000 });
+    pushUrl(1, [], [], [], { from: 30000, to: 500000 });
     fetchProducts(1);
   };
 
   // Helper push URL
-  const pushUrl = (page, genders, agegroups, price) => {
+  const pushUrl = (page, genders, productTypes, agegroups, price) => {
     const genderParam = genders.filter(Boolean).join(",");
     const agegroupParam = agegroups.filter(Boolean).join(",");
     router.push(
-      `?page=${page}&genders=${genderParam}&agegroups=${agegroupParam}&minPrice=${price.from}&maxPrice=${price.to}`,
+      `?page=${page}&genders=${genderParam}&productTypes=${productTypes}&agegroups=${agegroupParam}&minPrice=${price.from}&maxPrice=${price.to}`,
       { scroll: false }
     );
   };
@@ -136,7 +151,7 @@ const ShopWithSidebar = ({ productSidebar }) => {
           {/* Sidebar */}
           <div
             className={`sidebar-content fixed xl:z-1 z-9999 left-0 top-0 xl:translate-x-0 xl:static max-w-[310px] xl:max-w-[270px] w-full ease-out duration-200 ${
-              productSidebar
+              isFilterOpen
                 ? "translate-x-0 bg-white p-5 h-screen overflow-y-auto"
                 : "-translate-x-full"
             }`}
@@ -170,6 +185,13 @@ const ShopWithSidebar = ({ productSidebar }) => {
                   setSelectedAgegroups={setSelectedAgegroups}
                 />
                 <GenderDropdown
+                  name="Phân loại"
+                  genders={productTypes}
+                  selectedGenders={selectedProductTypes}
+                  setSelectedGenders={setSelectedProductTypes}
+                />
+                <GenderDropdown
+                  name="Giới tính"
                   genders={genders}
                   selectedGenders={selectedGenders}
                   setSelectedGenders={setSelectedGenders}

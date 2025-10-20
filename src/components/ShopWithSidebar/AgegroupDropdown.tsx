@@ -61,7 +61,7 @@ const AgegroupDropdown = ({ agegroups, selectedAgegroups, setSelectedAgegroups }
         onClick={(e) => { e.preventDefault(); setToggleDropdown(!toggleDropdown); }}
         className={`cursor-pointer flex items-center justify-between py-3 pl-6 pr-5.5 ${toggleDropdown && "shadow-filter"}`}
       >
-        <p className="text-dark" style={{ fontFamily: 'Arial, sans-serif' }}>Độ tuổi (Kích cỡ)</p>
+        <p className="text-dark">Độ tuổi (Kích cỡ)</p>
         <button
           aria-label="button for category dropdown"
           className={`text-dark ease-out duration-200 ${toggleDropdown && "rotate-180"}`}
@@ -84,7 +84,7 @@ const AgegroupDropdown = ({ agegroups, selectedAgegroups, setSelectedAgegroups }
         </button>
       </div>
 
-      <div className={`flex-col gap-3 py-5 pl-6 pr-5.5 ${toggleDropdown ? "flex" : "hidden"}`}>
+      <div className={`flex-col gap-3 py-3 pl-5 pr-4.5 ${toggleDropdown ? "flex" : "hidden"}`}>
         {agegroups.map((category) => (
           <CategoryItem
             key={category.id}

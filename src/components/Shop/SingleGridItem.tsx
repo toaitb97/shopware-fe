@@ -121,36 +121,15 @@ const SingleGridItem = ({ item }: { item: Product }) => {
 
       <div className="flex items-center justify-center gap-2.5">
         <div className="flex items-center gap-1">
-          <Image
-            src="/images/icons/icon-star.svg"
-            alt="star icon"
-            width={15}
-            height={15}
-          />
-          <Image
-            src="/images/icons/icon-star.svg"
-            alt="star icon"
-            width={15}
-            height={15}
-          />
-          <Image
-            src="/images/icons/icon-star.svg"
-            alt="star icon"
-            width={15}
-            height={15}
-          />
-          <Image
-            src="/images/icons/icon-star.svg"
-            alt="star icon"
-            width={15}
-            height={15}
-          />
-          <Image
-            src="/images/icons/icon-star.svg"
-            alt="star icon"
-            width={15}
-            height={15}
-          />
+          {[...Array(5)].map((_, index) => (
+            <Image
+              key={index}
+              src="/images/icons/icon-star.svg"
+              alt="star icon"
+              width={15}
+              height={15}
+            />
+          ))}
         </div>
 
         <p className="text-custom-sm">({item.reviews})</p>
@@ -169,8 +148,7 @@ const SingleGridItem = ({ item }: { item: Product }) => {
             {item.price.toLocaleString("vi-VN")}<span className="align-top">đ</span>
           </span>
         )}
-      </span>
-
+      </span> 
     </div>
   );
 };
