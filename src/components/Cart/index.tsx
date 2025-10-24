@@ -170,7 +170,7 @@ const Cart = () => {
           <div className="text-center mt-8">
             <p className="pb-6">Giỏ hàng của bạn trống!</p>
             <Link
-              href="/shop-with-sidebar"
+              href="/"
               className="w-96 mx-auto flex justify-center font-medium text-white bg-dark py-[13px] px-6 rounded-md hover:bg-opacity-95"
             >
               Tiếp tục mua sắm
