@@ -106,15 +106,15 @@ const CartSidebarModal = () => {
                 href="/cart"
                 className="w-full flex justify-center font-medium text-white bg-blue py-[13px] px-6 rounded-md ease-out duration-200 hover:bg-blue-dark"
               >
-                Đặt Hàng
+                Xem giỏ hàng
               </Link>
 
-              <Link
+              {/* <Link
                 href="/checkout"
                 className="w-full flex justify-center font-medium text-white bg-dark py-[13px] px-6 rounded-md ease-out duration-200 hover:bg-opacity-95"
               >
                 Checkout
-              </Link>
+              </Link> */}
             </div>
           </div>
         </div>

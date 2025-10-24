@@ -7,6 +7,8 @@ export type Product = {
   discountedPrice: number;
   id: number;
   img: string;
+  ages: string[];
+  ageGroup: string;
   imgs?: {
     thumbnails: string[];
     previews: string[];

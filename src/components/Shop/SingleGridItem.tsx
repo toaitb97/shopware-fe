@@ -28,6 +28,7 @@ const SingleGridItem = ({ item }: { item: Product }) => {
       addItemToCart({
         ...item,
         quantity: 1,
+        ageGroup: item.ages?.[0] || "",
       })
     );
   };
@@ -91,7 +92,7 @@ const SingleGridItem = ({ item }: { item: Product }) => {
             className="inline-flex font-medium text-sm py-[7px] px-5 rounded-[7px] bg-blue text-white ease-out duration-200 hover:bg-blue-dark"
             style={{ fontFamily: 'Arial, sans-serif' }}
           >
-            + vào giỏ
+            Thêm
           </button>
 
           <button

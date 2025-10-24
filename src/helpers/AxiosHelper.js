@@ -55,7 +55,7 @@ instance.postData = (url, data, needsAuth, contentType) => {
   return new Promise((resolve, reject) => {
     axios.post(url, data, requestOptions)
       .then(res => {
-        resolve(res.data);
+        resolve(res);
       })
       .catch(res => {
         reject(formatReject(res));

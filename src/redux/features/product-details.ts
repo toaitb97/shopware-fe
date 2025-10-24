@@ -16,6 +16,8 @@ const initialState = {
     discount: 0,
     images: [],
     id: 0,
+    ages: [],
+    ageGroup: "",
     imgs: { thumbnails: [], previews: [] },
   },
 } as InitialState;

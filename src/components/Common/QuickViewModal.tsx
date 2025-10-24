@@ -34,6 +34,7 @@ const QuickViewModal = () => {
       addItemToCart({
         ...product,
         quantity,
+        ageGroup: product.ages?.[0] || "", // 👈 lấy phần tử đầu của mảng ages hoặc default
       })
     );
 

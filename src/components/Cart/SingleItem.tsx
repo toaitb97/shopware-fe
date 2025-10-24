@@ -4,12 +4,24 @@ import { useDispatch } from "react-redux";
 import {
   removeItemFromCart,
   updateCartItemQuantity,
+  updateCartItemSize
 } from "@/redux/features/cart-slice";
-
 import Image from "next/image";
 
 const SingleItem = ({ item }) => {
   const [quantity, setQuantity] = useState(item.quantity);
+  const [selectedSize, setSelectedSize] = useState(item.ages?.[0] || ""); // 👈 chọn mặc định phần tử đầu tiên
+
+  const sizeLabels = {
+    _12m_6_10kg_74_80cm: "6-10 cân",
+    _18m_11_12kg_80_86cm: "11-12 cân",
+    _2y_12_13kg_86_92cm: "12-13 cân",
+    _2_3y_13_15kg_92_98cm: "13-15 cân",
+    _3_4y_16_18kg_98_104cm: "16-18 cân",
+    _4_5y_18_20kg_104_110cm: "18-20 cân",
+    _5_6y_21_24kg_110_116cm: "21-24 cân",
+    _6_7y_24_27kg_116_122cm: "24-27 cân",
+  };
 
   const dispatch = useDispatch<AppDispatch>();
 
@@ -31,89 +43,79 @@ const SingleItem = ({ item }) => {
     }
   };
 
+  const handleSizeChange = (e) => {
+    const newSize = e.target.value;
+    setSelectedSize(newSize);
+    dispatch(updateCartItemSize({ id: item.id, ageGroup: newSize })); // 👈 cập nhật vào Redux
+  };
+
   return (
-    <div className="flex items-center border-t border-gray-3 py-5 px-7.5">
-      <div className="min-w-[400px]">
-        <div className="flex items-center justify-between gap-5">
-          <div className="w-full flex items-center gap-5.5">
-            <div className="flex items-center justify-center rounded-[5px] bg-gray-2 max-w-[80px] w-full h-17.5">
-              <Image width={200} height={200} src={item.imgs?.thumbnails[0]} alt="product" />
-            </div>
-
-            <div>
-              <h3 className="text-dark ease-out duration-200 hover:text-blue">
-                <a href="#"> {item.title} </a>
-              </h3>
-            </div>
-          </div>
+    <div className="grid grid-cols-[1.5fr_1fr_1fr_1fr_1fr_0.5fr] items-center border-t border-gray-3 py-4 px-6 gap-4">
+      {/* Ảnh + tên */}
+      <div className="flex items-center gap-4">
+        <div className="flex items-center justify-center rounded-md bg-gray-2 w-[80px] h-[80px]">
+          <Image
+            width={200}
+            height={200}
+            src={item.imgs?.thumbnails[0]}
+            alt={item.title}
+            className="object-cover rounded-md"
+          />
+        </div>
+        <div className="flex-1">
+          <h3 className="text-dark font-medium hover:text-blue transition-colors">
+            <a href="#">{item.title}</a>
+          </h3>
         </div>
       </div>
 
-      <div className="min-w-[180px]">
-        <p className="text-dark">${item.discountedPrice}</p>
-      </div>
+      {/* Giá đơn */}
+      <div className="text-dark text-center">{(item.discountedPrice).toLocaleString("vi-VN")}<span className="text-sm align-top">đ</span></div>
 
-      <div className="min-w-[275px]">
-        <div className="w-max flex items-center rounded-md border border-gray-3">
+      {/* Số lượng */}
+      <div className="flex justify-center">
+        <div className="flex items-center border border-gray-3 rounded-md overflow-hidden">
           <button
-            onClick={() => handleDecreaseQuantity()}
-            aria-label="button for remove product"
-            className="flex items-center justify-center w-11.5 h-11.5 ease-out duration-200 hover:text-blue"
+            onClick={handleDecreaseQuantity}
+            className="px-3 py-2 hover:text-blue transition-colors"
           >
-            <svg
-              className="fill-current"
-              width="20"
-              height="20"
-              viewBox="0 0 20 20"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M3.33301 10.0001C3.33301 9.53984 3.7061 9.16675 4.16634 9.16675H15.833C16.2932 9.16675 16.6663 9.53984 16.6663 10.0001C16.6663 10.4603 16.2932 10.8334 15.833 10.8334H4.16634C3.7061 10.8334 3.33301 10.4603 3.33301 10.0001Z"
-                fill=""
-              />
-            </svg>
+            -
           </button>
-
-          <span className="flex items-center justify-center w-16 h-11.5 border-x border-gray-4">
-            {quantity}
-          </span>
-
+          <span className="px-4 py-2 border-x border-gray-4">{quantity}</span>
           <button
-            onClick={() => handleIncreaseQuantity()}
-            aria-label="button for add product"
-            className="flex items-center justify-center w-11.5 h-11.5 ease-out duration-200 hover:text-blue"
+            onClick={handleIncreaseQuantity}
+            className="px-3 py-2 hover:text-blue transition-colors"
           >
-            <svg
-              className="fill-current"
-              width="20"
-              height="20"
-              viewBox="0 0 20 20"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M3.33301 10C3.33301 9.5398 3.7061 9.16671 4.16634 9.16671H15.833C16.2932 9.16671 16.6663 9.5398 16.6663 10C16.6663 10.4603 16.2932 10.8334 15.833 10.8334H4.16634C3.7061 10.8334 3.33301 10.4603 3.33301 10Z"
-                fill=""
-              />
-              <path
-                d="M9.99967 16.6667C9.53944 16.6667 9.16634 16.2936 9.16634 15.8334L9.16634 4.16671C9.16634 3.70647 9.53944 3.33337 9.99967 3.33337C10.4599 3.33337 10.833 3.70647 10.833 4.16671L10.833 15.8334C10.833 16.2936 10.4599 16.6667 9.99967 16.6667Z"
-                fill=""
-              />
-            </svg>
+            +
           </button>
         </div>
       </div>
 
-      <div className="min-w-[200px]">
-        <p className="text-dark">${item.discountedPrice * quantity}</p>
+      {/* Size */}
+      <div className="flex justify-center">
+        <select
+          value={selectedSize}
+          onChange={handleSizeChange}
+          className="border border-gray-3 rounded-md px-3 py-2 text-dark w-[130px] text-left"
+        >
+          {item.ages?.map((sizeKey, idx) => (
+            <option key={idx} value={sizeKey}>
+              {sizeLabels[sizeKey] || sizeKey}
+            </option>
+          ))}
+        </select>
       </div>
 
-      <div className="min-w-[50px] flex justify-end">
+      {/* Tổng tiền */}
+      <div className="text-dark text-center font-semibold">
+        {(item.discountedPrice * quantity).toLocaleString("vi-VN")}<span className="text-sm align-top">đ</span>
+      </div>
+
+      {/* Xoá */}
+      <div className="flex justify-end">
         <button
-          onClick={() => handleRemoveFromCart()}
-          aria-label="button for remove product from cart"
-          className="flex items-center justify-center rounded-lg max-w-[38px] w-full h-9.5 bg-gray-2 border border-gray-3 text-dark ease-out duration-200 hover:bg-red-light-6 hover:border-red-light-4 hover:text-red"
+          onClick={handleRemoveFromCart}
+          className="flex items-center justify-center rounded-lg w-9 h-9 bg-gray-2 border border-gray-3 text-dark hover:bg-red-100 hover:border-red-200 hover:text-red transition-colors"
         >
           <svg
             className="fill-current"
@@ -144,7 +146,8 @@ const SingleItem = ({ item }) => {
           </svg>
         </button>
       </div>
-    </div>
+      </div>
+
   );
 };
 

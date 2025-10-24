@@ -12,6 +12,8 @@ type CartItem = {
   discountedPrice: number;
   quantity: number;
   img: string;
+  ages: string[];
+  ageGroup: string;
   imgs?: {
     thumbnails: string[];
     previews: string[];
@@ -27,7 +29,7 @@ export const cart = createSlice({
   initialState,
   reducers: {
     addItemToCart: (state, action: PayloadAction<CartItem>) => {
-      const { id, title, price, quantity, discountedPrice, img, imgs } =
+      const { id, title, price, quantity, discountedPrice, img, ages, ageGroup, imgs } =
         action.payload;
       const existingItem = state.items.find((item) => item.id === id);
 
@@ -41,7 +43,9 @@ export const cart = createSlice({
           quantity,
           discountedPrice,
           img,
-          imgs,
+          ages,
+          ageGroup,
+          imgs
         });
       }
     },
@@ -60,7 +64,13 @@ export const cart = createSlice({
         existingItem.quantity = quantity;
       }
     },
-
+    updateCartItemSize: (state, action) => {
+      const { id, ageGroup } = action.payload;
+      const item = state.items.find((i) => i.id === id);
+      if (item) {
+        item.ageGroup = ageGroup;
+      }
+    },
     removeAllItemsFromCart: (state) => {
       state.items = [];
     },
@@ -75,10 +85,6 @@ export const selectTotalPrice = createSelector([selectCartItems], (items) => {
   }, 0);
 });
 
-export const {
-  addItemToCart,
-  removeItemFromCart,
-  updateCartItemQuantity,
-  removeAllItemsFromCart,
-} = cart.actions;
+export const { addItemToCart, removeItemFromCart, updateCartItemQuantity, updateCartItemSize } = cart.actions;
+
 export default cart.reducer;

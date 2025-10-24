@@ -25,6 +25,7 @@ const SingleItem = ({ item }: { item: Product }) => {
       addItemToCart({
         ...item,
         quantity: 1,
+        ageGroup: item.ages?.[0] || "", // 👈 lấy phần tử đầu của mảng ages hoặc default
       })
     );
   };

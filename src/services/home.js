@@ -16,6 +16,11 @@ const getPagedProducts = (gender, productType, productStyle, ageGroup, minPrice,
   return axios.getData(`/api/Home/GetPagedProducts?${queryParams}`);
 };
 
+const createOrder = (orderRequest) => {
+  return axios.postData("/api/Home/CreateOrder", orderRequest);
+};
+
+
 export const homeService = {
-  getPagedProducts
+  getPagedProducts, createOrder
 };
