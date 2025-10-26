@@ -13,14 +13,14 @@ const SingleItem = ({ item }) => {
   const [selectedSize, setSelectedSize] = useState(item.ages?.[0] || ""); // 👈 chọn mặc định phần tử đầu tiên
 
   const sizeLabels = {
-    _12m_6_10kg_74_80cm: "6-10 cân",
-    _18m_11_12kg_80_86cm: "11-12 cân",
-    _2y_12_13kg_86_92cm: "12-13 cân",
-    _2_3y_13_15kg_92_98cm: "13-15 cân",
-    _3_4y_16_18kg_98_104cm: "16-18 cân",
-    _4_5y_18_20kg_104_110cm: "18-20 cân",
-    _5_6y_21_24kg_110_116cm: "21-24 cân",
-    _6_7y_24_27kg_116_122cm: "24-27 cân",
+    _12m_6_10kg_74_80cm: "12 tháng 6-10 cân",
+    _18m_11_12kg_80_86cm: "12 tháng 11-12 cân",
+    _2y_12_13kg_86_92cm: "2 tuổi 12-13 cân",
+    _2_3y_13_15kg_92_98cm: "2-3 tuổi 13-15 cân",
+    _3_4y_16_18kg_98_104cm: "3-4 tuổi 16-18 cân",
+    _4_5y_18_20kg_104_110cm: "4-5 tuổi 18-20 cân",
+    _5_6y_21_24kg_110_116cm: "5-6 tuổi 21-24 cân",
+    _6_7y_24_27kg_116_122cm: "6-7 tuổi 24-27 cân",
   };
 
   const dispatch = useDispatch<AppDispatch>();
@@ -96,7 +96,7 @@ const SingleItem = ({ item }) => {
         <select
           value={selectedSize}
           onChange={handleSizeChange}
-          className="border border-gray-3 rounded-md px-3 py-2 text-dark w-[130px] text-left"
+          className="border border-gray-3 rounded-md px-3 py-2 text-dark w-[180px] text-left"
         >
           {item.ages?.map((sizeKey, idx) => (
             <option key={idx} value={sizeKey}>
