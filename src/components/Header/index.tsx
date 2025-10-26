@@ -56,7 +56,7 @@ const Header = () => {
           stickyMenu && "shadow"
         }`}
       >
-        <div className="max-w-[1170px] mx-auto px-4 sm:px-7.5 xl:px-0">
+        <div className="container">
           {/* <!-- header top start --> */}
           <div
             className={`flex flex-col lg:flex-row gap-5 items-end lg:items-center xl:justify-between ease-out duration-200 ${

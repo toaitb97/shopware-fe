@@ -21,6 +21,13 @@ const config: Config = {
         sm: "2rem",
         xl: "0",
       },
+      screens: {
+        sm: '640px',
+        md: '900px',
+        lg: '1170px',
+        xl: '1440px',
+        '2xl': '1600px',
+      }
     },
     colors: {
       current: "currentColor",

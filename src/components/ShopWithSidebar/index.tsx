@@ -59,16 +59,22 @@ const ShopWithSidebar = () => {
   const pageSize = 12;
 
   // Fetch products từ API
-  const fetchProducts = async (page = 1) => {
+  const fetchProducts = async (
+    page = 1,
+    genders = selectedGenders,
+    productTypes = selectedProductTypes,
+    agegroups = selectedAgegroups,
+    price = selectedPrice
+  ) => {
     try {
       setLoading(true);
       const res = await homeService.getPagedProducts(
-        selectedGenders,
-        selectedProductTypes,
+        genders,
+        productTypes,
         [],
-        selectedAgegroups,
-        selectedPrice.from,
-        selectedPrice.to,
+        agegroups,
+        price.from,
+        price.to,
         page,
         pageSize
       );
@@ -80,6 +86,7 @@ const ShopWithSidebar = () => {
       setLoading(false);
     }
   };
+
 
   // Khi load trang lần đầu, đọc params từ URL
   useEffect(() => {
@@ -131,7 +138,7 @@ const ShopWithSidebar = () => {
     setSelectedPrice({ from: 30000, to: 500000 });
     setCurrentPage(1);
     pushUrl(1, [], [], [], { from: 30000, to: 500000 });
-    fetchProducts(1);
+    fetchProducts(1, [], [], []);
   };
 
   // Helper push URL
@@ -146,7 +153,7 @@ const ShopWithSidebar = () => {
 
   return (
     <section className="overflow-hidden relative pb-20 pt-5 lg:pt-20 xl:pt-28 bg-[#f3f4f6]">
-      <div className="max-w-[1170px] w-full mx-auto px-4 sm:px-8 xl:px-0">
+      <div className="container">
         <div className="flex gap-7.5">
           {/* Sidebar */}
           <div
@@ -205,7 +212,7 @@ const ShopWithSidebar = () => {
           </div>
 
           {/* Content */}
-          <div className="xl:max-w-[870px] w-full">
+          <div className="container">
             <div className="rounded-lg bg-white shadow-1 pl-3 pr-2.5 py-2.5 mb-6">
               <div className="flex items-center justify-between">
                 <div className="flex flex-wrap items-center gap-4">
