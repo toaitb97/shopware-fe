@@ -46,11 +46,13 @@ const SingleGridItem = ({ item }: { item: Product }) => {
   return (
     <div className="group">
       <div className="relative flex items-center justify-center rounded-lg bg-white shadow-1 overflow-hidden">
+        <div className="w-full h-[250px] flex items-center justify-center bg-white">
           <img
             src={item.img}
             alt="Product"
-            className="max-w-full max-h-full object-contain"
+            className="h-full w-full object-cover rounded-md"
           />
+        </div>
 
         <div className="absolute left-0 bottom-0 translate-y-full w-full flex items-center justify-center gap-2.5 pb-5 ease-linear duration-200 group-hover:translate-y-0">
           <button
