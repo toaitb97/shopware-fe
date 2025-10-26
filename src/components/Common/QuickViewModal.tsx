@@ -140,8 +140,9 @@ const QuickViewModal = () => {
                     <Image
                       src={product?.imgs?.previews?.[activePreview]}
                       alt="products-details"
-                      width={400}
-                      height={400}
+                      width={600}
+                      height={600}
+                      className="w-[400px] h-[400px] sm:w-[600px] sm:h-[600px] object-contain rounded-lg"
                     />
                   </div>
                 </div>
