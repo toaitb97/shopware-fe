@@ -115,7 +115,14 @@ const PreviewSliderModal = () => {
             alt="product image"
             width={800}
             height={800}
-            className="w-[550px] h-[550px] sm:w-[800px] sm:h-[800px] object-contain rounded-lg"
+            className="object-contain rounded-lg 
+              w-[425px] h-[425px] 
+              sm:w-[540px] sm:h-[540px]
+              md:w-[668px] md:h-[668px]
+              lg:w-[724px] lg:h-[724px]
+              xl:w-[980px] xl:h-[980px]
+              xl-plus:w-[980px] xl-plus:h-[980px]
+              2xl:w-[980px] 2xl:h-[980px]"
           />
           </div>
         </SwiperSlide>
