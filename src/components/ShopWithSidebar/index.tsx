@@ -152,7 +152,7 @@ const ShopWithSidebar = () => {
   };
 
   return (
-    <section className="overflow-hidden relative pb-20 pt-5 lg:pt-20 xl:pt-28 bg-[#f3f4f6]">
+    <section className="overflow-hidden relative pb-20 pt-55 sm:pt-40 md:pt-40 lg:pt-25 bg-[#f3f4f6]">
       <div className="container">
         <div className="flex gap-7.5">
           {/* Sidebar */}
@@ -221,7 +221,7 @@ const ShopWithSidebar = () => {
               </div>
             </div>
 
-            <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 xl-plus:grid-cols-4 gap-x-7.5 gap-y-9 pt-30 lg:pt-0">
+            <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 xl-plus:grid-cols-4 gap-x-7.5 gap-y-9 lg:pt-0">
               {products.map((item, key) => (
                 <SingleGridItem item={item} key={key} />
               ))}
