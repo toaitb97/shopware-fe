@@ -12,17 +12,27 @@ const SingleItem = ({ item, removeItemFromCart }) => {
 
   return (
     <div className="flex items-center justify-between gap-6 py-2">
-      <div className="w-full flex items-center gap-6">
-        <div className="flex items-center justify-center rounded-[10px] bg-gray-3 max-w-[90px] w-full h-22.5">
-          <Image src={item.img} alt="product" width={100} height={100} />
-        </div>
-
-        <div>
-          <span className="text-dark">
-            {item.discountedPrice.toLocaleString("vi-VN")}<span className="text-sm align-top">đ</span>
-          </span>
-        </div>
+    <div className="w-full grid grid-cols-3 items-center gap-6">
+      {/* Cột 1: Ảnh */}
+      <div className="flex items-center justify-center rounded-[10px] bg-gray-3 w-[90px] h-22.5 mx-auto">
+        <Image src={item.img} alt="product" width={100} height={100} />
       </div>
+
+      {/* Cột 3: Giá */}
+      <div className="text-right">
+        <span className="text-dark text-base font-semibold">
+          {item.discountedPrice.toLocaleString("vi-VN")}
+          <span className="text-sm align-top">đ</span>
+        </span>
+      </div>
+
+      {/* Cột 2: Số lượng */}
+      <div className="text-center">
+        <span className="text-dark text-base font-medium">
+          {item.quantity}
+        </span>
+      </div>
+    </div>
 
       <button
         onClick={handleRemoveFromCart}

@@ -22,12 +22,13 @@ const config: Config = {
         xl: "0",
       },
       screens: {
-        sm: '640px',
-        md: '900px',
-        lg: '1170px',
-        xl: '1440px',
-        '2xl': '1600px',
-      }
+        sm: "640px",   // small devices: mobile → tablet
+        md: "768px",   // medium devices: tablets → small laptops
+        lg: "1024px",  // large devices: laptops → desktops
+        xl: "1280px",  // extra large: larger desktops
+        "xl-plus": "1440px",
+        "2xl": "1536px",
+      },
     },
     colors: {
       current: "currentColor",
@@ -108,8 +109,9 @@ const config: Config = {
     screens: {
       xsm: "375px",
       lsm: "425px",
-      "3xl": "2000px",
       ...defaultTheme.screens,
+      "xl-plus": "1440px",
+      "3xl": "2000px",
     },
     extend: {
       fontSize: {

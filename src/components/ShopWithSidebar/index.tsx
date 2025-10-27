@@ -157,10 +157,10 @@ const ShopWithSidebar = () => {
         <div className="flex gap-7.5">
           {/* Sidebar */}
           <div
-            className={`sidebar-content fixed xl:z-1 z-9999 left-0 top-0 xl:translate-x-0 xl:static max-w-[310px] xl:max-w-[270px] w-full ease-out duration-200 ${
+            className={`sidebar-content fixed lg:z-1 z-9999 left-0 top-0 lg:translate-x-0 lg:static max-w-[310px] lg:max-w-[270px] w-full ease-out duration-200 ${
               isFilterOpen
                 ? "translate-x-0 bg-white p-5 h-screen overflow-y-auto"
-                : "-translate-x-full"
+                : "-translate-x-full lg:translate-x-0"
             }`}
           >
             <form onSubmit={(e) => e.preventDefault()}>
@@ -221,7 +221,7 @@ const ShopWithSidebar = () => {
               </div>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-7.5 gap-y-9 pt-30 lg:pt-0">
+            <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 xl-plus:grid-cols-4 gap-x-7.5 gap-y-9 pt-30 lg:pt-0">
               {products.map((item, key) => (
                 <SingleGridItem item={item} key={key} />
               ))}

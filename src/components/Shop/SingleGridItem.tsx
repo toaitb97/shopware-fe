@@ -46,7 +46,7 @@ const SingleGridItem = ({ item }: { item: Product }) => {
   return (
     <div className="group">
       <div className="relative flex items-center justify-center rounded-lg bg-white shadow-1 overflow-hidden">
-        <div className="w-full h-[250px] flex items-center justify-center bg-white">
+        <div className="w-full h-[150px] md:h-[250px] lg:h-[170px] xl:h-[250px] flex items-center justify-center bg-white">
           <img
             src={item.img}
             alt="Product"
