@@ -6,14 +6,17 @@ import axios from "axios";
 axios.defaults.baseURL = "https://shopware-api-960942081397.us-west1.run.app";
 // create a response interceptor to check for 401s
 axios.interceptors.response.use(
-  response => response,
-  error => {
-
+  (response) => response,
+  (error) => {
     if (error.response) {
       const { status } = error.response;
       if (status === 401) {
-        localStorage.removeItem('user_info');
-        window.location.reload(true);
+        // Xóa token & redirect về trang signin
+        localStorage.removeItem("accessToken");
+        localStorage.removeItem("tokenExpiry");
+        if (typeof window !== "undefined") {
+          window.location.href = "/signin";
+        }
       }
     }
 
@@ -23,129 +26,111 @@ axios.interceptors.response.use(
 
 // create a default instance of axios
 const instance = axios.create({
-  responseType: "json"
+  responseType: "json",
 });
-
 
 //#region generic crud methods
 instance.getData = (url, needsAuth) => {
-  const requestOptions = needsAuth === true || needsAuth === undefined ? { headers: authHeader() } : {};
+  const requestOptions =
+    needsAuth === true || needsAuth === undefined
+      ? { headers: authHeader() }
+      : {};
 
   return new Promise((resolve, reject) => {
-    axios.get(url, requestOptions)
-      .then(res => {
-        resolve(res.data);
-      })
-      .catch(res => {
-        reject(formatReject(res));
-      })
+    axios
+      .get(url, requestOptions)
+      .then((res) => resolve(res.data))
+      .catch((res) => reject(formatReject(res)));
   });
-}
+};
 
 instance.upsertData = (id, url, data, needsAuth) => {
   if (id === undefined || id === null || id === 0 || id === "")
     return instance.postData(url, data, needsAuth);
-  else
-    return instance.putData(`${url}/${id}`, data, needsAuth);
-}
+  else return instance.putData(`${url}/${id}`, data, needsAuth);
+};
 
 instance.postData = (url, data, needsAuth, contentType) => {
-  const requestOptions = needsAuth === true || needsAuth === undefined ? { headers: authHeader(contentType) } : {};
+  const requestOptions =
+    needsAuth === true || needsAuth === undefined
+      ? { headers: authHeader(contentType) }
+      : {};
 
   return new Promise((resolve, reject) => {
-    axios.post(url, data, requestOptions)
-      .then(res => {
-        resolve(res);
-      })
-      .catch(res => {
-        reject(formatReject(res));
-      })
+    axios
+      .post(url, data, requestOptions)
+      .then((res) => resolve(res))
+      .catch((res) => reject(formatReject(res)));
   });
-}
+};
 
 instance.putData = (url, data, needsAuth) => {
-  const requestOptions = needsAuth === true || needsAuth === undefined ? { headers: authHeader() } : {};
+  const requestOptions =
+    needsAuth === true || needsAuth === undefined
+      ? { headers: authHeader() }
+      : {};
 
   return new Promise((resolve, reject) => {
-    axios.put(url, data, requestOptions)
-      .then(res => {
-        resolve(res.data);
-      })
-      .catch(res => {
-        reject(formatReject(res));
-      })
+    axios
+      .put(url, data, requestOptions)
+      .then((res) => resolve(res.data))
+      .catch((res) => reject(formatReject(res)));
   });
-}
+};
 
 instance.deleteData = (url) => {
   const requestOptions = { headers: authHeader() }; // deletes always need security
 
   return new Promise((resolve, reject) => {
-    axios.delete(url, requestOptions)
-      .then(res => {
-        resolve(res.data);
-      })
-      .catch(res => {
-        reject(formatReject(res));
-      })
+    axios
+      .delete(url, requestOptions)
+      .then((res) => resolve(res.data))
+      .catch((res) => reject(formatReject(res)));
   });
-}
+};
 
 instance.deleteMultipleData = (url, ids) => {
   const requestOptions = {
     headers: authHeader(), // deletes always need security
-    data: { ids }
+    data: { ids },
   };
 
   return new Promise((resolve, reject) => {
-    axios.delete(url, requestOptions)
-      .then(res => {
-        resolve(res.data);
-      })
-      .catch(res => {
-        reject(formatReject(res));
-      })
+    axios
+      .delete(url, requestOptions)
+      .then((res) => resolve(res.data))
+      .catch((res) => reject(formatReject(res)));
   });
-}
+};
 
 function formatReject(res) {
-  if (res === null)
-    return "error";
+  if (res === null) return "error";
 
-  // normal operation
   if (res.response) {
     if (Array.isArray(res.response.data)) {
-      let m = res.response.data.map((o, idx) => {
-        return o.description;
-      });
+      let m = res.response.data.map((o) => o.description);
       return m.join("\n");
     }
-
     return res.response.data;
-  }
-  else if (res.request) {
+  } else if (res.request) {
     return "network error";
-  }
-  else
-    return "error";
-
+  } else return "error";
 }
 //#endregion
 
 export default instance;
 
+// ✅ Sửa lại hàm authHeader để lấy accessToken
 export function authHeader(contentType) {
-  contentType = contentType ?? 'application/json';
-  // return authorization header with jwt token
-  let info = localStorage.getItem('user_info');
-  let user = info !== null ? JSON.parse(window.atob(info)) : null;
+  contentType = contentType ?? "application/json";
+  const token = localStorage.getItem("accessToken");
 
-  if (user && user.token) {
+  if (token) {
     return {
-      'Authorization': 'Bearer ' + user.token,
-      'Content-Type': contentType
+      Authorization: `Bearer ${token}`,
+      "Content-Type": contentType,
     };
   } else {
-    return { 'Content-Type': contentType };
+    return { "Content-Type": contentType };
   }
 }
